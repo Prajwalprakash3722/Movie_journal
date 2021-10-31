@@ -1,2 +1,7 @@
-# react-tailwind-css-boilerplate
-This is a boilerplate repositry for React with Tailwind CSS initial project setup, which will save a lot of time.
+This repository is a boilerplate for React + TailwindCSS Project.
+
+- Step -1:
+  1. Clone the repository
+  2. Change the package.json file to your project name
+  3. Run `npm install`
+  4. Run `npm start`
