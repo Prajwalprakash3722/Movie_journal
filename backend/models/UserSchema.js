@@ -13,6 +13,7 @@ const UserSchema = new mongoose.Schema({
   password: {
     type: String,
     required: true,
+    select: false,
   },
   date: {
     type: Date,
@@ -21,3 +22,9 @@ const UserSchema = new mongoose.Schema({
 });
 
 module.exports = mongoose.model("user", UserSchema, "users");
+
+// schema = {
+//   "name":
+//     "email"
+//   "password"
+// }

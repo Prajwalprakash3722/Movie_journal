@@ -2,17 +2,16 @@ const jwt = require("jsonwebtoken");
 
 function authTokenMiddleware(req, res, next) {
   const authHeader = req.headers["authorization"];
-  // BEARER TOKEN
-  const atoken = authHeader?.split(" ")[1] ?? null;
-  if (atoken === null) {
+  const token = authHeader?.split(" ")[1] ?? null;
+  if (token === null) {
     res.status(401).json({ ok: false, status: "no header" });
+    return;
   }
-  jwt.verify(atoken, "secret", (err, user) => {
+  jwt.verify(token, "secret", (err, user) => {
     if (err) {
       res.status(403).json({ ok: false, status: "auth failed" });
       return;
     }
-    // console.log(user);
     req.user = user;
     next();
   });
