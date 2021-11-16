@@ -1,12 +1,26 @@
+import React from "react";
+import Card from "./components/Card/Card";
 function App() {
   return (
-    <div className="flex flex-row items-center justify-center min-h-screen bg-gray-400">
-      <span role="img" aria-label="emoji">
-        🦄
-      </span>
-      <h1 className="text-4xl ml-2 font-semibold text-blue-100">
-        React + Tailwind CSS
-      </h1>
+    <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+      <Card />
+      <Card />
+      <Card />
+      <Card />
+      <Card />
+      <Card />
+      <Card />
+      <Card />
+      <Card />
+      <Card />
+      <Card />
+      <Card />
+      <Card />
+      <Card />
+      <Card />
+      <Card />
+      <Card />
+      <Card />
     </div>
   );
 }

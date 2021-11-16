@@ -1,7 +1,13 @@
-This repository is a boilerplate for React + TailwindCSS Project.
+This repository is a Movie Journal done in `MERN` stack.
 
-- Step -1:
+- Step -1 (Frontend):
+
   1. Clone the repository
-  2. Change the package.json file to your project name
+  2. Run `npm install`
+  3. Run `npm start`
+
+- Step -2 (Backend):
+  1. Clone the repository
+  2. cd backend
   3. Run `npm install`
   4. Run `npm start`
