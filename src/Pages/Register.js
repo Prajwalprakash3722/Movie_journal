@@ -4,10 +4,8 @@ import { useState } from "react";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 function Register() {
-  const [data, setData] = useState({});
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState(false);
@@ -21,8 +19,6 @@ function Register() {
     email: email,
     password: password,
   };
-
-  function RegisterUser(email, password) {}
 
   function handleForm(e) {
     e.preventDefault();
@@ -45,7 +41,13 @@ function Register() {
         .then((data) => {
           if (data.message === "User Created Successfully") {
             setSuccess(true);
+            setLoading(false);
             setSuccessMessage(data.message);
+            setTimeout(() => {
+              setError(false);
+              setSuccess(false);
+              window.location.href = "/login";
+            }, 3000);
           } else if (data.message === "User Exists Already") {
             setError(true);
             setErrorMessage(data.message);
@@ -90,9 +92,7 @@ function Register() {
                   role="alert"
                 >
                   <p class="font-bold">Success</p>
-                  <p class="text-sm">
-                    Successfully created a Account, you can login now
-                  </p>
+                  <p class="text-sm">{successMessage}</p>
                 </div>
               )}
               <form

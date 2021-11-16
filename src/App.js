@@ -1,9 +1,11 @@
 import React from "react";
-import Card from "./components/Card/Card";
 import LoginPage from "./Pages/Login";
 import RegisterPage from "./Pages/Register";
+import HomePage from "./Pages/HomePage";
 import NavBar from "./components/NavBar/NavBar";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import Footer from "./components/Footer/Footer";
+import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
+import AddNew from "./components/Forms/AddNew";
 function App() {
   const token = localStorage.getItem("token");
 
@@ -11,22 +13,16 @@ function App() {
     <div className="">
       <Router>
         <NavBar />
-        {/* <Route exact path="/" component={Home} /> */}
-        {token ? (
-          <div>
-            <Card />
-            <Card />
-            <Card />
-            <Card />
-          </div>
-        ) : (
-          <div>
-            <Route exact path="/login" component={LoginPage} />
-            <Route exact path="/register" component={RegisterPage} />
-          </div>
+        {token && (
+          <>
+            <Route path="/add" component={AddNew} />
+          </>
         )}
-        {/* <Route path="/login" component={LoginPage} />
-        <Route path="/register" component={RegisterPage} /> */}
+        {!token && <Redirect from="/add" to="/login" />}
+        <Route exact path="/" component={HomePage} />
+        <Route exact path="/login" component={LoginPage} />
+        <Route exact path="/register" component={RegisterPage} />
+        <Footer />
       </Router>
     </div>
   );
