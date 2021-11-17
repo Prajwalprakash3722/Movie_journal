@@ -87,7 +87,7 @@ export default function Nav() {
                     to="/add"
                     className="m-5 text-gray-lightest hover:text-gray-dark"
                   >
-                    Add a Review
+                    Add
                   </Link>
                 </h2>
                 <h2

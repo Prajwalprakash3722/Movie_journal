@@ -20,8 +20,36 @@ router.get("/user", auth, (req, res, next) => {
   });
 });
 
-// router.get("movies", auth, (req, res) => {
-//   const movies = Movie.find();
-// });
+router.get("/movies", auth, (req, res) => {
+  const _id = req.user["id"];
+  const movies = Movie.find({ userId: _id }, (err, movies) => {
+    if (movies) {
+      res.status(200).json(movies);
+    } else {
+      res.status(401).json({ message: "No Movies Found" });
+    }
+  });
+});
+
+router.post("/movies", auth, async (req, res) => {
+  const userId = req.user["id"];
+  const { title, year, rating, review, genre, watched } = await req.body;
+  const movie = new Movie({
+    title,
+    genre,
+    year,
+    rating,
+    review,
+    watched,
+    userId,
+  });
+  await movie.save((err, movie) => {
+    if (movie) {
+      res.status(200).json({ message: "Movie Added Successfully" });
+    } else {
+      res.status(500).json({ message: "Movie not saved" });
+    }
+  });
+});
 
 module.exports = router;

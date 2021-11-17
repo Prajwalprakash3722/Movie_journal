@@ -65,7 +65,7 @@ function Login() {
         )}
         {success && (
           <div
-            className="mt-2 bg-green-light border-t border-b border-r border-l border-green-500 text-green-dark px-4 py-3 rounded-lg"
+            className="mt-2 bg-green-100 border-t border-b border-r border-l border-green-500 text-green-dark px-4 py-3 rounded-lg"
             role="alert"
           >
             <p className="font-bold">Success</p>

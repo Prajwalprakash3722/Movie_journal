@@ -10,31 +10,37 @@ import Rating from "../Card/Rating";
  * @params {number} rating
  */
 
-export default function Card({ props }) {
-  const id = Math.floor(Math.random() * 100000 + 1).toString();
-  const star = Math.floor(Math.random() * 5) + 1;
+export default function Card({
+  key,
+  id,
+  title,
+  date,
+  review,
+  rating,
+  genre,
+}) {
+  var localDate = new Date(date).toLocaleDateString();
   return (
     <>
       <Link to={`movie?id=${id}`}>
-        <div className="flex flex-col items-center bg-gray-lightest p-5 rounded-lg m-2">
+        <div className="flex flex-col items-center bg-gray-lightest p-5 rounded-lg m-3">
           <img
-            src="https://api.time.com/wp-content/uploads/2018/06/dinosaurs-jurassic-world-fact-check-3.jpg?w=824&quality=100"
+            src="https://api.time.com/wp-content/uploads/2018/06/dinosaurs-jurassic-world-fact-check-3.jpg?w=800&quality=100"
+            // src="https://source.unsplash.com/random/824x600"
             alt="Hero"
             className="w-full rounded-lg m-2 p-2"
           />
           <h2 className="text-xl font-bold text-gray-cool">
-            Jurassic World: Fallen Kingdom
+            {title}
           </h2>
           <h2 className="text-xl font-bold text-gray-cool">
-            Your Rating: <Rating num={star} />
+            Your Rating: <Rating num={rating} />
           </h2>
-          <p className="leading-relaxed text-gray-cool">
-            Jurassic World: Fallen Kingdom is a 2018 American science fiction
-            adventure film directed by J. A. Bayona and written by J. A. Bayona
-            and Michael Crichton. It is the second installment in the Jurassic
-            World film series, and the sequel to Jurassic Park. The film is
-            based on the book Jurassic Park by Michael Crichton.....
-          </p>
+          <h2 className="text-xl font-bold text-gray-cool">Genre: {genre}</h2>
+          <h2 className="text-xl font-bold text-gray-cool">
+            Date: {localDate}
+          </h2>
+          <p className="leading-relaxed text-gray-cool">{review}</p>
         </div>
       </Link>
     </>

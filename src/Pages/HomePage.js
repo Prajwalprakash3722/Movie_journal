@@ -63,6 +63,10 @@ function HomePage() {
                 />
               </div>
             </div>
+            <h1 className="text-5xl font-serif text-gray-500">
+              How Does this work ?
+            </h1>
+
             <Timeline />
           </section>
         </>
@@ -72,3 +76,5 @@ function HomePage() {
 }
 
 export default HomePage;
+
+

@@ -3,7 +3,6 @@ import "./Timeline.css";
 function Timeline() {
   return (
     <>
-      <h1 className="text-5xl font-serif text-gray-500">How Does this work ?</h1>
       <div class="timeline">
         <div class="timeline__item">
           <h3 class="timeline__title">Register</h3>
