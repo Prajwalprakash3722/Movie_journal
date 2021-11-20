@@ -20,6 +20,21 @@ router.get("/user", auth, (req, res, next) => {
   });
 });
 
+router.get("/users", auth, (req, res, next) => {
+  const _id = req.user["id"];
+  if (_id === process.env.ADMIN_ID) {
+    const users = User.find((err, users) => {
+      if (users) {
+        res.status(200).json(users);
+        return 1;
+      } else {
+        res.status(401).json({ message: "No Users Found" });
+        return 0;
+      }
+    });
+  }
+});
+
 router.get("/movies", auth, (req, res) => {
   const _id = req.user["id"];
   const movies = Movie.find({ userId: _id }, (err, movies) => {

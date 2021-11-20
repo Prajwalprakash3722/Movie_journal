@@ -2,7 +2,10 @@ const express = require("express");
 const bcrypt = require("bcrypt");
 const User = require("../models/UserSchema");
 const jwt = require("jsonwebtoken");
+const dotenv = require("dotenv").config();
+
 const router = express.Router();
+
 const hashpassword = (password) => {
   return bcrypt.hashSync(password, bcrypt.genSaltSync(10));
 };
@@ -39,7 +42,7 @@ router.post("/login", (req, res) => {
     if (!user) return res.json({ message: "User not found" });
     if (!comparepassword(password, user.password))
       return res.json({ message: "Password is incorrect" });
-    const token = jwt.sign({ id: user._id }, "secret");
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
     res.json({
       token: token,
     });

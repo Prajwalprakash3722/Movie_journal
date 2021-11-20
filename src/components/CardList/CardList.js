@@ -27,17 +27,19 @@ function CardList() {
         <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 min-h-screen">
           {props.length > 0 &&
             props.map((item) => (
-              <Card
-                key={item.id}
-                id={item._id}
-                title={item.title}
-                // poster={item.poster}
-                year={item.year}
-                date={item.date}
-                review={item.review}
-                rating={item.rating}
-                genre={item.genre}
-              />
+              <>
+                <Card
+                  key={item.id}
+                  id={item._id}
+                  title={item.title}
+                  // poster={item.poster}
+                  year={item.year}
+                  date={item.date}
+                  review={item.review}
+                  rating={item.rating}
+                  genre={item.genre}
+                />
+              </>
             ))}
         </div>
       )}

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import S3 from "react-aws-s3";
 
 function AddNew() {
   const [title, setTitle] = useState("");
@@ -34,32 +35,27 @@ function AddNew() {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
+    setLoading(true);
     axios
       .post("http://localhost:3001/api/movies", data, {
-        headers: headers,
+        headers: { ...headers },
       })
       .then((res) => {
         setSuccess(true);
+        setSuccessMessage(res.data.message);
         setLoading(false);
-        if (res.data.message === "Movie added successfully") {
-          setError(true);
-          setLoading(false);
-          setSuccessMessage(res.data.message);
-        } else if (res.data.message === "Movie already exists") {
-          setError(true);
-          setLoading(false);
-          setErrormessage(res.data.message);
-        } else {
-          setError(true);
-          setLoading(false);
-          setErrormessage("Something is Wrong Please try again later!!");
-        }
       })
       .catch((err) => {
         setError(true);
+        setErrormessage(err.response.data.message);
         setLoading(false);
-        setErrormessage(err.message);
       });
+  };
+
+  const handleChange = (e) => {
+    if (e.target.files[0]) {
+      setImage(e.target.files[0]);
+    }
   };
 
   return (
@@ -79,9 +75,10 @@ function AddNew() {
           role="alert"
         >
           <p className="font-bold">Success</p>
+          <p className="text-sm">{successMessage}</p>
         </div>
       )}
-      <div class="bg-gray-100 mx-auto max-w-6xl  py-20 px-12 lg:px-24 shadow-xl mb-24">
+      <div class="bg-gray-100 mx-auto max-w-6xl  py-20 px-12 lg:px-24 shadow-xl m-24">
         <form>
           <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 flex flex-col">
             <div class="-mx-3 md:flex mb-6">
@@ -128,7 +125,7 @@ function AddNew() {
                   class="w-full bg-gray-200 text-black border border-gray-200 rounded py-3 px-4 mb-3"
                   id="poster"
                   type="file"
-                  onChange={(e) => setImage(e.target.files[0])}
+                  onChange={handleChange}
                 />
               </div>
             </div>
@@ -193,23 +190,25 @@ function AddNew() {
                 </div>
               </div>
             </div>
-            <div class="px-3">
-              <label
-                class="uppercase tracking-wide text-black text-xs font-bold mb-2"
-                for="review"
-              >
-                Review*
-              </label>
-              <textarea
-                rows="4"
-                cols="24"
-                class="w-full bg-gray-200 text-black border border-gray-200 rounded py-3 px-4 mb-3"
-                id="review"
-                type="text"
-                placeholder="..."
-                onChange={(e) => setReview(e.target.value)}
-              />
-            </div>
+            {watched && (
+              <div class="px-3">
+                <label
+                  class="uppercase tracking-wide text-black text-xs font-bold mb-2"
+                  for="review"
+                >
+                  Review*
+                </label>
+                <textarea
+                  rows="4"
+                  cols="24"
+                  class="w-full bg-gray-200 text-black border border-gray-200 rounded py-3 px-4 mb-3"
+                  id="review"
+                  type="text"
+                  placeholder="..."
+                  onChange={(e) => setReview(e.target.value)}
+                />
+              </div>
+            )}
             <div class="-mx-3 md:flex mt-2">
               <div class="md:w-full px-3">
                 <button

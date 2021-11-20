@@ -1,11 +1,15 @@
 import { React, useEffect, useState } from "react";
 import axios from "axios";
-
+import Users from "../Table/Users";
+import { Modal } from "@material-ui/core";
 function ProfileCard() {
   const [token, setToken] = useState("");
   const [user, setUser] = useState({});
   const [props, setProps] = useState([]);
-  const [wishlist, setWishlist] = useState([]);
+  const [password, changePassword] = useState(false);
+  const [cancel, setCancel] = useState(false);
+
+  let wishlist = [];
   useEffect(() => {
     setToken(localStorage.getItem("token"));
     if (token) {
@@ -32,13 +36,6 @@ function ProfileCard() {
         })
         .then((res) => {
           setProps(res.data);
-        })
-        .then(() => {
-          for (let i = 0; i < props.length; i++) {
-            if (props[i].watched === false) {
-              wishlist.push(props[i]);
-            }
-          }
         });
     }
   }, [token]);
@@ -63,17 +60,22 @@ function ProfileCard() {
             <div className="p-8">
               <h3 className="font-bold text-2xl mb-5">{user.name}</h3>
               <p className="font-mono leading-relaxed">{user.email}</p>
-              <button className="mt-5 rounded-lg px-4 py-2 bg-blue-500 text-blue-50 shadow hover:shadow-xl duration-300">
+              <button
+                className="mt-5 rounded-lg px-4 py-2 bg-blue-500 text-blue-50 shadow hover:shadow-xl duration-300"
+                onClick={() => changePassword(true)}
+              >
+                {" "}
                 Change Password
               </button>
             </div>
           </div>
+          {password && <Modal />}
           <div class="flex justify-evenly mt-6 py-6 border border-neutral border-r-0 border-b-0 border-l-0">
             <div class="text-center">
               <h3 class="font-bold text-secondary">
                 {props.length === 0 ? "Write Some Reviews" : props.length}
               </h3>
-              <p class="text-xs text-text tracking-widest">Movies</p>
+              <p class="text-xs text-text tracking-widest">Movies Added</p>
             </div>
             <div class="text-center">
               <h3 class="font-bold text-secondary">
@@ -85,9 +87,10 @@ function ProfileCard() {
             </div>
           </div>
           <footer className="rounded-b-lg bg-gray-100 text-sm text-gray-500 px-8 py-3 text-right">
-            Profile Updated {diffDays} days ago
+            Profile Created {diffDays === 1 ? "Today " : diffDays + " days ago"}
           </footer>
         </div>
+        <Users />
       </div>
     </>
   );

@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
-// import RotateLeftIcon from "@material-ui/icons/RotateLeft";
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -35,7 +34,7 @@ function Login() {
           setSuccess(true);
           setTimeout(() => {
             window.location.assign("/");
-          }, 2000);
+          }, 1500);
         } else {
           setError(true);
           setErrormessage("Something went wrong, Please try again later!");
